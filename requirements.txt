@@ -1,0 +1,3 @@
+# Requirements for YottaFlex synthetic data generator
+# No external dependencies required - uses only Python standard library
+# Python 3.7+ recommended
