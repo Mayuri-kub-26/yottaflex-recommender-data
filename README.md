@@ -1,14 +1,14 @@
 # YottaFlex AI Candidate Project
 ## Synthetic Data Generator for E-Commerce Recommendation Systems
 
-""" Note : The full generated dataset is **not included** in this repository due to GitHub file size limits. 
-
-To generate the complete dataset locally:
-
-run the following cmd in the terminal 
-"python run.py "
-
-This will create all required files in data/ using the fixed seed 20261022 as specified in the problem. """
+> **Note on Dataset Generation:**  
+> The raw generated dataset files (under `data/`, ~1.8 GB in total) are excluded from this Git repository via `.gitignore` to comply with GitHub's 100 MB file size restrictions.  
+>  
+> To generate the full dataset locally, run:
+> ```bash
+> python run.py
+> ```
+> This executes in ~2.5 minutes and produces all CSV, JSON, and SQL files in `data/`, matching the deterministic validation checksums in `docs/validation_summary.json` with fixed seed `20261022`. The ground truth anomalies (`ground_truth/`) and validation summaries remain committed.
 
 
 
