@@ -4,7 +4,7 @@
 
 Ran the generator for the first time at full scale (500k sessions, 100k orders) and it completely froze at step 3. Left it running for 10 minutes and nothing printed. Killed it.
 
-Started profiling manually by adding print statements to find where it stalled — it was definitely inside generate_carts_and_orders.
+Started profiling manually by adding print statements to find where it stalled - it was definitely inside generate_carts_and_orders.
 
 ## Root cause I found myself
 
@@ -35,8 +35,8 @@ Asked AI to double-check my refactor didn't change the random seed sequence (sin
 
 ## After fix
 
-Full run: ~2.5 minutes
+Full run:  app 2.5 minutes
 Validation: 10,995,557 checks passed, 0 errors
 
-Also fixed a Windows-specific crash at the very end — the emoji characters (✅, ⚠️) were crashing on Windows cp1252 console encoding. Swapped to [OK] and [!] text tags and added sys.stdout.reconfigure(encoding='utf-8') at startup.
+Also fixed a Windows-specific crash at the very end - the emoji characters (✅, ⚠️) were crashing on Windows cp1252 console encoding. Swapped to [OK] and [!] text tags and added sys.stdout.reconfigure(encoding='utf-8') at startup.
 
