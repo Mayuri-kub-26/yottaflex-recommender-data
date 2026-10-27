@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-10-27T21:26:43.401510",
+  "seed": 20261022,
+  "volumes": {
+    "customers": 20000,
+    "categories": 14,
+    "products": 10000,
+    "sessions": 449382,
+    "pageviews": 3718472,
+    "carts": 134934,
+    "cart_lines": 337303,
+    "orders": 100000,
+    "order_lines": 220517,
+    "product_relations": 50281,
+    "recommendations": 80001,
+    "ground_truth": 4
+  },
+  "split": {
+    "train_sessions": 359505,
+    "test_sessions": 89877
+  },
+  "validation": {
+    "checks_total": 10995557,
+    "checks_passed": 10995557,
+    "errors": [],
+    "warnings": [],
+    "success": true
+  },
+  "checksums": {
+    "cart.csv": "3de7874e866e239e4275c4db7c543d65ebc42022a83c0b977cef991f5ec403a9",
+    "cart.json": "14239de5e29f2b56c1e4b90ec20ecb836fc91bca2a738a7479263ad0d6b01173",
+    "cartline.csv": "9f5a0fbf86dd6fb16b1e4d57cae2796cf46628d21b0b8bece89cb916f7e6e371",
+    "cartline.json": "1ba70c5afd5fe818fcbc6b3e77892dc0442597fd9a5e218b41d05543cfac1dae",
+    "category.csv": "897bbd89324cbb16083d11c8b2936d77c14720d2d7b6aac82e175e6ff55a1d5e",
+    "category.json": "fcb1d690474e5f93ba127c1eddd317ddd11693e0342b161d42b7efa4657c5527",
+    "customer.csv": "32f0d3a135ec4ef3fe757611cc9120407bedcaadd9fa66ceae5c541a643170f6",
+    "customer.json": "cffd4864fc2fdec894d4598b2622ff41fbd75ad650d55890c8f856193e168915",
+    "order.csv": "ad7a82c3f6d5488712b1436074f804d766003672cf7e07c7dc5efc1253c8955d",
+    "order.json": "e70f20d8a7c0c2d3d8ec72b05a808a7b5865d0c3e40bc23d3d4a4c4673c0791a",
+    "orderline.csv": "44802e36001fddbf7267f1c9ae94d787a578beb2c7ea9b894e7d3f7dd89226ae",
+    "orderline.json": "81d06072a6f1fb93affbfae937ff190b2d3b2f14c24e8970d34e1d6fe73797ef",
+    "pageview.csv": "96c77f9ebcd94ff59dbb8e0116a4697d48dad2c6179f16f802eda6f1f2bc0adf",
+    "pageview.json": "10a9d4ef44eaf14574386859e6cc7bd5c7ac0e05159badc486dd58ed927f99a1",
+    "product.csv": "1ebb6965ce65541226430ff470f80c026873f42d8f4a13d8d8e23574661dca47",
+    "product.json": "a1929720b05d3b9f5699cc9c6342ec22bb2fdb5d2308ff0fd6f1505f321765e7",
+    "productrelation.csv": "f028548f2d591b7dab58a57d658c015aad5cfa75a31e65b2951ddb2e84cf1fce",
+    "productrelation.json": "08ff345213d2f5393a2f6d36a5820487ce45a297761b51567e9eebce267e5d99",
+    "recommendation.csv": "ed857a8fb1366457585ba5d7366dd713e6b16113254a5cae981490d766cd1ef2",
+    "recommendation.json": "2283e51f5ad68263bda6ccb7f909b1c4df3cb20083c94a68b328345e7a51bd3d",
+    "session.csv": "52f7afb50839482e5374e9d84ca624eb402a7a64499aa295ee244343ee122fc6",
+    "session.json": "76f864a596056c00d4bee46ef8516db8506b3fa379c2bbfbcf289a5b9cd70a4b",
+    "ground_truth/ground_truth.csv": "e4bb207a3aff2155d75b951e389186326b6a632b513ff16d76283ab72f6666aa",
+    "ground_truth/ground_truth.json": "1da568e710422386e27b9cc8ba0d927bab3ef92f2a0133a1317a6464a73876d5"
+  },
+  "edge_cases_injected": [
+    "purchase_without_prior_session",
+    "product_category_missing",
+    "test_events_leak_into_training",
+    "recommendation_includes_discontinued_product"
+  ],
+  "reproducibility": {
+    "seed_fixed": 20261022,
+    "note": "Run twice with same seed to verify identical results"
+  }
+}

@@ -1,6 +1,17 @@
 # YottaFlex AI Candidate Project
 ## Synthetic Data Generator for E-Commerce Recommendation Systems
 
+""" Note : The full generated dataset is **not included** in this repository due to GitHub file size limits. 
+
+To generate the complete dataset locally:
+
+run the following cmd in the terminal 
+"python run.py "
+
+This will create all required files in data/ using the fixed seed 20261022 as specified in the problem. """
+
+
+
 ## 1. Project Overview
 
 This project focuses on building a synthetic data generator for an e-commerce recommendation system. It creates realistic, interconnected datasets that can be used to develop, test, and evaluate product recommendation algorithms.

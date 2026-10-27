@@ -1,0 +1,5 @@
+gt_id,issue_type,entity_type,entity_id,description,expected_decision,ground_truth_label,is_leakage_candidate,created_at
+GT-000001,purchase_without_prior_session,Order,ORD-2026-000001,Purchase appears before session view without a valid prior session,reject_or_flag,anomalous,False,2026-10-27T21:25:17Z
+GT-000002,product_category_missing,Product,SKU-000014,Product has no valid category assigned,exclude_or_require_category,missing_category,False,2026-10-27T21:25:17Z
+GT-000003,test_events_leak_into_training,Session,SES-2026-000011,Test events leak into training set (deliberate),move_to_test_or_flag,leakage,True,2026-10-27T21:25:17Z
+GT-000004,recommendation_includes_discontinued_product,Recommendation,REC-000000006,Recommendation includes discontinued product (violation of exclusion rule),exclude,invalid_recommendation,False,2026-10-27T21:25:17Z

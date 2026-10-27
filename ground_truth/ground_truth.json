@@ -1,0 +1,46 @@
+[
+  {
+    "gt_id": "GT-000001",
+    "issue_type": "purchase_without_prior_session",
+    "entity_type": "Order",
+    "entity_id": "ORD-2026-000001",
+    "description": "Purchase appears before session view without a valid prior session",
+    "expected_decision": "reject_or_flag",
+    "ground_truth_label": "anomalous",
+    "is_leakage_candidate": false,
+    "created_at": "2026-10-27T21:25:17Z"
+  },
+  {
+    "gt_id": "GT-000002",
+    "issue_type": "product_category_missing",
+    "entity_type": "Product",
+    "entity_id": "SKU-000014",
+    "description": "Product has no valid category assigned",
+    "expected_decision": "exclude_or_require_category",
+    "ground_truth_label": "missing_category",
+    "is_leakage_candidate": false,
+    "created_at": "2026-10-27T21:25:17Z"
+  },
+  {
+    "gt_id": "GT-000003",
+    "issue_type": "test_events_leak_into_training",
+    "entity_type": "Session",
+    "entity_id": "SES-2026-000011",
+    "description": "Test events leak into training set (deliberate)",
+    "expected_decision": "move_to_test_or_flag",
+    "ground_truth_label": "leakage",
+    "is_leakage_candidate": true,
+    "created_at": "2026-10-27T21:25:17Z"
+  },
+  {
+    "gt_id": "GT-000004",
+    "issue_type": "recommendation_includes_discontinued_product",
+    "entity_type": "Recommendation",
+    "entity_id": "REC-000000006",
+    "description": "Recommendation includes discontinued product (violation of exclusion rule)",
+    "expected_decision": "exclude",
+    "ground_truth_label": "invalid_recommendation",
+    "is_leakage_candidate": false,
+    "created_at": "2026-10-27T21:25:17Z"
+  }
+]

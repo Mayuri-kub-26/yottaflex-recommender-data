@@ -29,6 +29,7 @@ def generate_carts_and_orders(sessions: List[Dict[str, Any]], customers: List[Di
     
     cart_count = 0
     order_count = 0
+    cart_lines_by_cart = {}
     
     # Generate carts from sessions (most sessions might add to cart)
     for session in sessions:
@@ -53,11 +54,14 @@ def generate_carts_and_orders(sessions: List[Dict[str, Any]], customers: List[Di
             
             # Add cart lines
             num_items = random.randint(1, 4)
+            current_cart_total = 0.0
+            current_cart_lines = []
             for _ in range(num_items):
                 prod = random.choice(active_products) if active_products else random.choice(products)
                 qty = random.randint(1, 3)
                 unit_price = prod["price"]
                 line_amt = round_money(qty * unit_price)
+                current_cart_total += line_amt
                 
                 cl = {
                     "cart_line_id": gen.cart_line(),
@@ -70,23 +74,25 @@ def generate_carts_and_orders(sessions: List[Dict[str, Any]], customers: List[Di
                     "created_at": iso_format(cart_created)
                 }
                 cart_lines.append(cl)
+                current_cart_lines.append(cl)
             
             # Update cart total
-            cart_total = sum([cl["line_amount"] for cl in cart_lines if cl["cart_id"] == cart["cart_id"]])
-            cart["cart_total"] = round_money(cart_total)
+            cart["cart_total"] = round_money(current_cart_total)
+            cart_lines_by_cart[cart["cart_id"]] = current_cart_lines
     
     # Generate orders
     set_seed(SEED + 6)
     # Create orders from converted carts mostly
     converted_carts = [c for c in carts if c["cart_status"] == "converted"]
+    active_or_all = [p for p in products if p["status"] == "active"] or products
     
     for i in range(n_orders):
         if order_count >= n_orders:
             break
         # Most orders come from converted carts
         if converted_carts and random.random() < 0.8:
-            cart = random.choice(converted_carts)
-            converted_carts.remove(cart)  # use once
+            idx = random.randrange(len(converted_carts))
+            cart = converted_carts.pop(idx)  # use once
             session = session_map.get(cart["session_id"])
             order_date = datetime.strptime(cart["updated_at"].replace('Z', ''), "%Y-%m-%dT%H:%M:%S") + timedelta(minutes=random.randint(1, 15))
             order_status = "completed"  # mostly completed
@@ -114,26 +120,27 @@ def generate_carts_and_orders(sessions: List[Dict[str, Any]], customers: List[Di
         orders.append(order)
         order_count += 1
         
+        order_total = 0.0
         # Add order lines
         if cart:
             # Copy from cart lines
-            for cl in cart_lines:
-                if cl["cart_id"] == cart["cart_id"]:
-                    ol = {
-                        "order_line_id": gen.order_line(),
-                        "order_id": order["order_id"],
-                        "product_id": cl["product_id"],
-                        "quantity": cl["quantity"],
-                        "unit_price": cl["unit_price"],
-                        "line_amount": cl["line_amount"],
-                        "created_at": iso_format(order_date)
-                    }
-                    order_lines.append(ol)
+            for cl in cart_lines_by_cart.get(cart["cart_id"], []):
+                ol = {
+                    "order_line_id": gen.order_line(),
+                    "order_id": order["order_id"],
+                    "product_id": cl["product_id"],
+                    "quantity": cl["quantity"],
+                    "unit_price": cl["unit_price"],
+                    "line_amount": cl["line_amount"],
+                    "created_at": iso_format(order_date)
+                }
+                order_lines.append(ol)
+                order_total += cl["line_amount"]
         else:
             # Create random order lines
             num_items = random.randint(1, 3)
             for _ in range(num_items):
-                prod = random.choice([p for p in products if p["status"] == "active"] or products)
+                prod = random.choice(active_or_all)
                 qty = random.randint(1, 2)
                 unit_price = prod["price"]
                 line_amt = round_money(qty * unit_price)
@@ -147,9 +154,9 @@ def generate_carts_and_orders(sessions: List[Dict[str, Any]], customers: List[Di
                     "created_at": iso_format(order_date)
                 }
                 order_lines.append(ol)
+                order_total += line_amt
         
         # Update order total
-        order_total = sum([ol["line_amount"] for ol in order_lines if ol["order_id"] == order["order_id"]])
         order["order_total"] = round_money(order_total)
     
     return carts, cart_lines, orders, order_lines
